@@ -1,0 +1,126 @@
+<ion-modal-view style="z-index: 11;" class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+  <form name="moneyMovementForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title"
+        ng-bind-html="(moneyMovement.money_movement_id!=null?(event.attendee_customer_bonus_id==null?event.amount+' € ** PAGADO ** ':event.customer_bonus_name+' ** PAGADO **'):'')+(moneyMovement.customer_place!=null?event.description +' '+event.title+' ' + event.start.format('dddd DD/MMM') + ' a las ' + event.start.format('HH:mm'):'Caja')">
+      </h1>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+        ng-click="closeMoneyMovementModal()"></button>
+    </ion-header-bar>
+    <ion-content has-bouncing="true">
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Sucursal
+            </div>
+            <select ng-disabled="moneyMovement.attendance_not_attendance_id!=undefined"
+              ng-options="customerPlace.customer_place_name for customerPlace in customerPlacesNotAll track by customerPlace.customer_place_id"
+              placeholder="Sucursal"
+              ng-model="moneyMovement.customer_place"></select>{{customerPlace.customer_place_name}}
+          </label>
+        </div>
+
+
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Profesional
+            </div>
+            <select ng-disabled="moneyMovement.attendance_not_attendance_id!=undefined"
+              ng-options="customerEmployee.customer_employee_name for customerEmployee in customerEmployeesNotAll track by customerEmployee.customer_employee_id"
+              placeholder="Profesional" ng-model="moneyMovement.customer_employee"></select>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Actividad
+            </div>
+            <select ng-disabled="!moneyMovement.attendance_not_attendance_id && moneyMovement.amount"
+              ng-options="customerActivity.name for customerActivity in customerActivities track by customerActivity.customer_activity_id"
+              placeholder="Actividad" ng-model="moneyMovement.customer_activity"></select>
+          </label>
+        </div>
+
+
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Fecha</div>
+            <input ng-disabled="moneyMovement.attendance_not_attendance_id!=undefined" type="date" placeholder="Fecha"
+              ng-model="moneyMovement.date">
+          </label>
+        </div>
+      </div>
+
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Hora</div>
+            <input ng-disabled="moneyMovement.attendance_not_attendance_id!=undefined" type="time" placeholder="HH:mm"
+              ng-model="moneyMovement.time">
+          </label>
+        </div>
+
+
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Bonos activos
+            </div>
+            <select ng-disabled="event.money_movement_id != null"
+              ng-options="eventBonus.name+' '+(eventBonus.usage!=null?eventBonus.usage:0)+'/'+eventBonus.value for eventBonus in event.bonuses track by eventBonus.attendee_customer_bonus_id"
+              placeholder="Bono" ng-model="moneyMovement.attendee_customer_bonus"></select>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Forma de pago
+            </div>
+            <select
+              ng-options="paymentMethod.name disable when paymentMethod.disabled for paymentMethod in paymentMethods track by paymentMethod.payment_method_id"
+              placeholder="Forma de pago" ng-model="moneyMovement.payment_method" required></select>
+          </label>
+        </div>
+
+
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Concepto</div>
+            <input type="text" placeholder="Introduce el concepto" ng-model="moneyMovement.concept" required>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Importe (€)</div>
+            <input ng-disabled="moneyMovement.payment_method.payment_method_id==5" type="text"
+              placeholder="Introduce el importe" ng-model="moneyMovement.amount" required>
+          </label>
+        </div>
+      </div>
+
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+        ng-disabled="moneyMovementForm.$invalid" ng-click="saveMoneyMovement()">Aceptar</button>
+      <button ng-disabled="!moneyMovement.attendee" type="button"
+        class="button button-stable modal-select-close-button ng-binding icon ion-ios-box"
+        ng-click="openBonusMoneyMovementModal()">Contratar Bono</button>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-ios-box"
+        ng-click="openCashDeskClosingModal()" ng-hide="isEmployee"
+        ng-disabled="moneyMovement.attendance_not_attendance_id">Cierre de caja</button>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+        ng-disabled="!moneyMovement.money_movement_id" ng-click="saveSaleInvoice();">GenerarFactura</button>
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

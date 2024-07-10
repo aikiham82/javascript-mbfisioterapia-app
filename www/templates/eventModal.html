@@ -1,0 +1,72 @@
+<ion-modal-view id="eventModalForm" style="z-index: 10;" ng-controller="EventCtrl"
+  class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active invisible">
+  <form name="eventForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title" ng-bind-html="(event.money_movement_id!=null?(event.attendee_customer_bonus_id==null?event.amount+
+  ' € ** PAGADO ** ':event.customer_bonus_name+ ' ** PAGADO **'): '')+'<b>'+event.description+'</b> - '+event.customer_employee_name +' - '+event.customer_place_name+ ' - '+event.title+ ' - ' + event.start.format(
+  'dddd DD/MMM') + ' a las ' + event.start.format( 'HH:mm')"></h1>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel
+" ng-click="closeEventModal()"></button>
+    </ion-header-bar>
+    <ion-content selectable-text overflow-scroll="true" has-bouncing="true">
+      <div class="row" ng-class="{ 'no-padding-top': !data.editItem}">
+        <ul>
+          <li ng-repeat="comment in event.comments">
+            <div class="col" style="padding:0px">
+              <span style="user-select: text;-moz-user-select:text;">
+                <b>{{comment.comment_customer_employee_name}},
+                  {{comment.comment_datetime | date:'EEEE d LLLL HH:mm'}}</b>
+                <button class="icon ion-ios-close-empty"
+                  ng-click="removeComment(comment.attendance_not_attendance_comment_id,$index)"></button>
+                <br> {{comment.comment_text}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="row" ng-class="{ 'no-padding-top': !data.editItem}">
+        <div class="col">
+          <textarea rows="5" style="width:98%;border:solid 1px;" ng-model="comment.text"
+            placeholder="Escribe tu comentario (Motivo de la consulta etc.)"></textarea>
+        </div>
+      </div>
+      <div class="row" ng-class="{ 'no-padding-top': !data.editItem}">
+        <div class="col">
+
+          <button type="button" class="button button-clear button-full icon ion-plus-round"
+            ng-click="launchCustomersEmployeesPopup()">Añadir
+            comentario
+          </button>
+        </div>
+      </div>
+      <button id="event_customerEmployeesPopup" class="button button-clear" modal-select ng-model="someModel"
+        options="customerEmployees" modal-title="Selecciona profesional" on-select="addComment(newValue, oldValue)"
+        cancel-search-button="Limpiar" hide-reset="true" cancel-button="Cancelar" search-placeholder="Buscar"
+        has-search="true" ng-hide="true">
+        <div class="option">{{option.customer_employee_name}}</div>
+      </button>
+      <button id="event_customerActivitiesPopup" class="button button-clear" modal-select ng-model="someModel"
+        options="customerActivities" modal-title="Selecciona actividad"
+        on-select="customerActivitySelect(newValue, oldValue)" cancel-search-button="Limpiar" hide-reset="true"
+        cancel-button="Cancelar" search-placeholder="Buscar" has-search="true" ng-hide="true">
+        <div class="option">{{option.name}}</div>
+      </button>
+      <button id="event_attendeesPopup" multiple class="button button-clear" modal-select
+        ng-model="attendeesSelectMultiple"
+        optionsMultipleRender="({option[1].customer_attendee_id}) {option[1].name} {option[1].phone1} {option[1].phone2!=''? option[1].phone2 : ''}"
+        options="attendees" modal-class="popup" modal-title="Selecciona paciente" on-select="attendeeSelect(newValue,
+  oldValue)" hide-reset="true" ok-button="Aceptar" cancel-button="Cancelar" has-search="true"
+        search-properties="attendeesSearchProperties" search-placeholder="Buscar" ng-hide="true">
+        <div class="option">({{option.customer_attendee_id}}) {{option.name}} {{option.phone1}} {{option.phone2!=''? option.phone2
+          : ''}}</div>
+      </button>
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-social-euro
+" ng-click="openMoneyMovementModal()">Cobros</button>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-document-text
+" ng-click="openAttendeeModal()" ng-click="">Paciente</button>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-calendar
+" ng-click="alertOnEventClick()">Cita</button>
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

@@ -1,0 +1,47 @@
+<ion-modal-view class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+  <form name="cashDeskClosingForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title">Cierre de caja</h1>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel" ng-click="closeCashDeskClosingModal()"></button>
+    </ion-header-bar>
+    <ion-content has-bouncing="true">
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+            Sucursal
+            </div>
+            <select ng-change="getCashDeskClosing()"  ng-options="customerPlace.customer_place_name for customerPlace in customersPlacesNotAll track by customerPlace.customer_place_id"  placeholder="Sucursal" ng-model="cashDeskClosing.customer_place" required></select>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Total Efectivo (€)</div>
+            <input ng-disabled="true" type="text" ng-model="cashDeskClosing.totalCash" required>
+      </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Total Tarjeta (€)</div>
+            <input ng-disabled="true" type="text" ng-model="cashDeskClosing.totalCard"  required>
+      </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Retirada efectivo (€)</div>
+            <input type="text" placeholder="Introduce el importe" ng-model="cashDeskClosing.amount" required>
+      </label>
+        </div>
+      </div>
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done" ng-disabled="cashDeskClosingForm.$invalid" ng-click="saveCashDeskClosing()">Aceptar</button>
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

@@ -1,0 +1,63 @@
+<ion-modal-view class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+  <form name="scheduleCalendarForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title">Dar cita extra</h1>
+    </ion-header-bar>
+    <ion-content has-bouncing="true">
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Profesional
+            </div>
+            <select
+              ng-options="customerEmployee.customer_employee_name for customerEmployee in customerEmployeesNotAll track by customerEmployee.customer_employee_id"
+              placeholder="Profesional" ng-model="scheduleCalendar.customer_employee" required></select>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Sucursal
+            </div>
+            <select
+              ng-options="customerPlace.customer_place_name for customerPlace in customerPlacesNotAll track by customerPlace.customer_place_id"
+              placeholder="Sucursal" ng-model="scheduleCalendar.customer_place" required></select>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Fecha</div>
+            <input type="date" placeholder="Fecha" ng-model="scheduleCalendar.date" required>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Hora inicio</div>
+            <input type="time" placeholder="HH:mm" ng-model="scheduleCalendar.start_time" required>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Hora fin</div>
+            <input type="time" placeholder="HH:mm" ng-model="scheduleCalendar.end_time" required>
+          </label>
+        </div>
+      </div>
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+        ng-disabled="scheduleCalendarForm.$invalid" ng-click="saveScheduleCalendar()">Guardar</button>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+        ng-click="closeScheduleCalendarModal()">Cancelar</button>
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

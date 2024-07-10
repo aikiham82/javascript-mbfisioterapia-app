@@ -1,0 +1,18 @@
+{
+  "name": "presencea",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.3.1",
+    "angular-inline-text-editor": "^0.3.23"
+  },
+  "dependencies": {
+    "angular-ui-calendar": "^1.0.2",
+    "font-awesome": "fontawesome#^4.7.0",
+    "angular-date-interceptor": "^1.0.1",
+    "angular-trix": "^1.0.2",
+    "angular-upload": "^1.0.12",
+    "ng-file-upload": "^12.2.13",
+    "angular-responsive-tables": "^0.4.4",
+    "ionic-datepicker-fork-ionic1": "^1.6.3"
+  }
+}

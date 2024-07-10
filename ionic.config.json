@@ -1,0 +1,19 @@
+{
+  "name": "mbfisioterapia",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic1",
+  "proxies": [{
+    "path": "/api",
+    "proxyUrl": "https://api.presencea.com:1024/api"
+  }],
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ],
+  "pro_id": "b2128f70",
+  "id": "b2128f70"
+}

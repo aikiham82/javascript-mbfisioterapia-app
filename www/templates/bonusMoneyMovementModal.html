@@ -1,0 +1,59 @@
+<ion-modal-view class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+  <form name="bonusMoneyMovementForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title">Cobrar Bono</h1>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+        ng-click="closeBonusMoneyMovementModal()"></button>
+    </ion-header-bar>
+    <ion-content has-bouncing="true">
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Bono
+            </div>
+            <select ng-change="setBonusPrice()"
+              ng-options="customerBonus.name for customerBonus in customerBonuses track by customerBonus.customer_bonus_id"
+              placeholder="Bono" ng-model="bonusMoneyMovement.customer_bonus" required></select>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input item-select large">
+            <div class="input-label" style="color: darkGray;">
+              Forma de pago
+            </div>
+            <select
+              ng-options="paymentMethod.name for paymentMethod in paymentMethods track by paymentMethod.payment_method_id"
+              placeholder="Forma de pago" ng-model="bonusMoneyMovement.payment_method" required></select>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Concepto</div>
+            <input type="text" placeholder="Introduce el concepto" ng-model="bonusMoneyMovement.concept" required>
+          </label>
+        </div>
+      </div>
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Importe (€)</div>
+            <input type="text" placeholder="Introduce el importe" ng-model="bonusMoneyMovement.amount" required>
+          </label>
+        </div>
+      </div>
+
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+        ng-disabled="bonusMoneyMovementForm.$invalid" ng-click="saveBonusMoneyMovement()">Aceptar</button>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+        ng-disabled="bonusMoneyMovement.money_movement_id==null"
+        ng-click="saveBonusSaleInvoice(true)">GenerarFactura</button>
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

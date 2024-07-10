@@ -1,0 +1,18 @@
+<ion-view class="titlebar" title='MBFISIOTERAPIA'>
+  <ion-content class="padding">
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" id="username" placeholder="Usuario" ng-keypress="keyPressed($event)" ng-model="user.name">
+      </label>
+      <label class="item item-input">
+        <input type="password" id="password" placeholder="Contraseña" ng-keypress="keyPressed($event)"
+          ng-model="user.password">
+      </label>
+    </div>
+    <button class="button button-full button-balanced" ng-click="login()">
+      Entrar
+    </button>
+    <ion-checkbox ng-checked="user.remember" ng-model="user.remember">Recordar usuario y contraseña</ion-checkbox>
+    <!--<button class="button button-positive button-clear button-full" ui-sref="outside.register">Register now!</button>---->
+  </ion-content>
+</ion-view>

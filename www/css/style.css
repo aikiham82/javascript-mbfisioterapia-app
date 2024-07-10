@@ -1,0 +1,156 @@
+bu
+/* Empty. Add your own CSS if you like */
+
+@font-face {
+  font-family: 'msans';
+  /*a name to be used later*/
+  src: url('../fonts/msans.otf');
+  /*URL fto font*/
+}
+
+@font-face {
+  font-family: 'impact';
+  /*a name to be used later*/
+  src: url('../fonts/impact.otf');
+  /*URL fto font*/
+}
+
+@font-face {
+  font-family: 'dinpro';
+  /*a name to be used later*/
+  src: url('../fonts/DINPro-CondBold.otf');
+  /*URL fto font*/
+}
+
+
+.myGrid {
+  height: 33vh !important;
+}
+
+.bar-stable .button {
+  background-color: #008864 !important;
+  border-color: #004fb3 !important;
+  color: #fff !important;
+}
+
+.ta-editor.form-control.myform2-height,
+.ta-scroll-window.form-control.myform2-height {
+  height: 400px;
+  min-height: 400px;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+.form-control.myform2-height>.ta-bind {
+  min-height: 400px;
+  padding: 6px 12px;
+}
+
+.qtip-content {
+  /*overflow: auto !important;*/
+  max-height: 400px !important;
+}
+
+.bar.bar-positive {
+  background-color: #004fb3 !important;
+  border-color: #004fb3 !important;
+}
+
+.bar.bar-positive .title {
+  font-family: 'dinpro' !important;
+}
+
+.bar.bar-stable {
+  background-color: #004fb3 !important;
+  border-color: #004fb3 !important;
+  color: #fff !important;
+}
+
+.bar.bar-stable .title {
+  color: #fff !important;
+}
+
+.button.button-stable {
+  background-color: #008864 !important;
+  border-color: #004fb3 !important;
+  color: #fff !important;
+}
+
+.bar.bar-positive .welcome_message {
+  padding-left: 5px;
+  margin-right: 20px;
+  height: 43px;
+  font-size: 17px;
+  font-weight: 500;
+  font-family: 'dinpro' !important;
+  color: #fff;
+}
+
+.bar.bar-positive button {
+  background-color: #008864 !important;
+  font-family: 'dinpro' !important;
+}
+
+.button.button-clear {
+  color: #fff !important;
+  background-color: #008864 !important;
+  font-family: dinpro !important;
+}
+
+.button.button-balanced {
+  background-color: #008864 !important;
+}
+
+.button.button-selected {
+  background-color: #004fb3 !important;
+  color: #fff !important;
+  /*font-style: italic;
+  font-weight: bold;*/
+}
+
+.loading {
+  /*background-color: #004fb3 !important;*/
+  border-color: #008864 !important;
+  opacity: 0.9;
+}
+
+.spinner svg {
+  stroke: #004fb3 !important;
+}
+
+.fc-toolbar h2 {
+  font-size: 20px !important;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.padding button {
+  font-family: dinpro !important;
+  letter-spacing: 1px;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.dot {
+  height: 5px;
+  width: 5px;
+  background-color: #f00;
+  border-radius: 50%;
+  margin-bottom: 1px;
+  margin-right: 4px;
+}
+
+.fc-icon-calendar:after {
+  content: "\f073";
+  font-family: FontAwesome;
+}
+
+.fc-icon-sync:after {
+  content: "\f021";
+  font-family: FontAwesome;
+}

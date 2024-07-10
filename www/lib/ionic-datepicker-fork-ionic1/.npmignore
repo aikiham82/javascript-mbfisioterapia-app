@@ -1,0 +1,9 @@
+.idea/
+node_modules/
+bower_components/
+.DS_Store/
+plugins/
+test/hooks/
+
+# Custom for project
+bower_dependencies/

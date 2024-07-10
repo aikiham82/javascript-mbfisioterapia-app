@@ -1,0 +1,12 @@
+<div ng-controller="HeaderCtrl">
+    <ion-nav-bar align-title="center" class="bar-positive">
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="toggleLeft()"></button>
+            <h5 class="welcome_message">{{welcome_message}}</h5>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <h5 class="welcome_message" ng-bind="'P:'+customerEmployee.customer_employee_name+' S:'+customerPlace.customer_place_name"></h5>
+            <button menu-toggle="left" class="button button-icon" ng-click="toggleRight()">Filtros</button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+</div>

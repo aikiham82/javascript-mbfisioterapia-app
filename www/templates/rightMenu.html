@@ -1,0 +1,35 @@
+<div ng-controller="RightMenuCtrl">
+    <ion-side-menu side="right">
+        <ion-content>
+            <ion-list>
+                <ion-item class="item item-icon-left" style="font-weight: bold;">
+                    <i class="icon ion-person"></i>Profesionales</ion-item>
+                <ion-checkbox ng-repeat="customerEmployee_ in customerEmployees"
+                    ng-change="customerEmployeeSelect(customerEmployee_)"
+                    ng-model="customerEmployee[customerEmployee_.customer_employee_id]"
+                    ng-checked="customerEmployee[customerEmployee_.customer_employee_id]">
+                    {{ customerEmployee_.customer_employee_name }}
+                </ion-checkbox>
+                <ion-item class="item item-icon-left" style="font-weight: bold;">
+                    <i class="icon ion-star"></i>Actividades</ion-item>
+                <ion-checkbox ng-repeat="customerActivity_ in customerActivities"
+                    ng-change="customerActivitySelect(customerActivity_)"
+                    ng-model="customerActivity[customerActivity_.customer_activity_id]"
+                    ng-checked="customerActivity[customerActivity_.customer_activity_id]">
+                    {{ customerActivity_.name }}
+                </ion-checkbox>
+                <span ng-if="customerPlaces.length>1">
+                    <ion-item class="item item-icon-left" style="font-weight: bold;">
+                        <i class="icon ion-location"></i>Sucursales</ion-item>
+                    <ion-checkbox ng-repeat="customerPlace_ in customerPlaces"
+                        ng-change="customerPlaceSelect(customerPlace_)"
+                        ng-model="customerPlace[customerPlace_.customer_place_id]"
+                        ng-checked="customerPlace[customerPlace_.customer_place_id]">
+                        {{ customerPlace_.customer_place_name }}
+                    </ion-checkbox>
+                </span>
+            </ion-list>
+            </button>
+        </ion-content>
+    </ion-side-menu>
+</div>

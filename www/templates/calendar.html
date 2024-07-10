@@ -1,0 +1,16 @@
+<div ng-controller="CalendarCtrl">
+    <div class="calendar" id="calendar" ng-model="eventsSource" calendar="EventsCalendar"
+        ui-calendar="uiConfig.calendar"></div>
+    <button id="calendar_EventsListPopup" class="button button-clear" modal-select ng-model="eventsSelectMultiple"
+        options="events" modal-class="popup" modal-title="Selecciona cita" on-select="eventSelect(newValue,
+    oldValue)" hide-reset="true" ok-button="Aceptar" cancel-button="Cancelar" has-search="true"
+        search-properties="eventsSearchProperties" search-placeholder="Buscar" ng-hide="true">
+        <div class="option">
+            <div data-ng-style="option.state === 2 && {'color':'tomato'}">
+                <div style="display:inline-block;" ng-class="option.state === 1 && !option.money_movement_id ?'dot':''">
+                </div>
+                {{option.attendee_name}}
+            </div>
+        </div>
+    </button>
+</div>

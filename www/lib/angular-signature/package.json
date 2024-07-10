@@ -1,0 +1,55 @@
+{
+  "_from": "angular-signature",
+  "_id": "angular-signature@1.0.3",
+  "_inBundle": false,
+  "_integrity": "sha1-IRgvxxXTlIniFH9tpKfpakl/4cY=",
+  "_location": "/angular-signature",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angular-signature",
+    "name": "angular-signature",
+    "escapedName": "angular-signature",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-signature/-/angular-signature-1.0.3.tgz",
+  "_shasum": "21182fc715d39489e2147f6da4a7e96a497fe1c6",
+  "_spec": "angular-signature",
+  "_where": "/home/abraham/Proyectos/Utilidades/Ionic/fisiolax",
+  "author": {
+    "name": "LegalThings",
+    "email": "info@legalthings.net"
+  },
+  "bugs": {
+    "url": "https://github.com/legalthings/angular-signature/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "signature_pad": "^1.5.0"
+  },
+  "deprecated": false,
+  "description": "HTML5 canvas based smooth signature drawing as angularJS directive",
+  "homepage": "https://github.com/legalthings/angular-signature#readme",
+  "keywords": [
+    "angular",
+    "signature"
+  ],
+  "license": "MIT",
+  "main": "src/signature.js",
+  "name": "angular-signature",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legalthings/angular-signature.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.3"
+}

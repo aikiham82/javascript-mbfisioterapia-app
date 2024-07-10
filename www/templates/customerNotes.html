@@ -1,0 +1,36 @@
+<ion-modal-view class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active"
+                ng-controller="CustomerNoteCtrl">
+    <form name="customerNoteForm">
+        <ion-header-bar class="bar bar-header bar-stable" ng-class="::ui.headerFooterClass">
+            <h1 class="title">Administración</h1>
+        </ion-header-bar>
+        <ion-content has-bouncing="true">
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <div class="input-label" style="color: darkGray;">Recordatorio</div>
+                        <input ng-model="customerNote.reminderDate" placeholder="Fecha" type="datetime-local">
+                    </label>
+                </div>
+            </div>
+            <div ng-model="customerNote.text"
+                 required
+                 ta-html-editor-class="form-control myform2-height" ta-text-editor-class="form-control myform2-height"
+                 ta-toolbar="[['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote','bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear','justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent','html', 'insertImage','insertLink', 'insertVideo']]"
+                 text-angular="text-angular">
+            </div>
+
+        </ion-content>
+        <ion-footer-bar class="bar bar-footer bar-stable" ng-class="::ui.headerFooterClass">
+            <button class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+                    ng-click="saveCustomerNote()"
+                    ng-disabled="customerNoteForm.$invalid"
+                    type="button">Guardar
+            </button>
+            <button class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+                    ng-click="closeCustomerNotesModal()"
+                    type="button">Cancelar
+            </button>
+        </ion-footer-bar>
+    </form>
+</ion-modal-view>

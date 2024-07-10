@@ -1,0 +1,44 @@
+<div ng-controller="LeftMenuCtrl">
+    <ion-side-menu side="left">
+        <ion-content>
+            <ion-list>
+                <ion-item ng-click="openMoneyMovementModal(true)" class="item item-icon-left menuitem"
+                    ng-hide="!customer">
+                    <i class="icon ion-social-euro"></i>Caja</ion-item>
+                <ion-item ng-click="changePassword()" class="item item-icon-left menuitem">
+                    <i class="icon ion-edit"></i>Cambiar contraseña</ion-item>
+                <ion-item ng-click="openBonusMoneyMovementModal()" class="item item-icon-left menuitem"
+                    ng-hide="!customer">
+                    <i class="icon ion-cash"></i>Cobrar Bono</ion-item>
+                <ion-item ng-click="openScheduleCalendarModal()" class="item item-icon-left menuitem"
+                    ng-hide="!customer">
+                    <i class="icon ion-plus-round"></i>Dar cita extra</ion-item>
+                <ion-item ng-click="launchUnpaymentsPopup()" class="item item-icon-left menuitem" ng-hide="!customer">
+                    <i class="icon ion-android-warning"></i>Impagos</ion-item>
+                <ion-item ng-click="launchAttendesPopup(null)" class="item item-icon-left menuitem" ng-hide="!customer">
+                    <i class="icon ion-person"></i>Pacientes</ion-item>
+                <!--<ion-item ng-click="openTpvModal()" class="item item-icon-left menuitem">
+                    <i class="icon ion-card"></i>Tpv</ion-item>-->
+                <ion-item ng-click="logout();" class="item item-icon-left">
+                    <i class="icon ion-android-exit"></i>Salir</ion-item>
+            </ion-list>
+            <button id="leftMenu_attendeesPopup" class="button button-clear" modal-select
+                ng-model="attendeesSelectMultiple"
+                optionsMultipleRender="({option[1].customer_attendee_id}) {option[1].name} {option[1].phone1} {option[1].phone2!=''? option[1].phone2 : ''}"
+                options="attendees" modal-class="popup" modal-title="Selecciona paciente" on-select="attendeeSelect(newValue,
+    oldValue)" hide-reset="true" ok-button="Aceptar" cancel-button="Cancelar" has-search="true"
+                search-properties="attendeesSearchProperties" search-placeholder="Buscar" ng-hide="true">
+                <div class="option">({{option.customer_attendee_id}}) {{option.name}} {{option.phone1}} {{option.phone2!=''?
+                    option.phone2 : ''}}</div>
+            </button>
+            <button id="leftMenu_unpaymentsPopup" class="button button-clear" modal-select
+                ng-model="unpaymentSelectMultiple" options="unpayments" modal-class="popup"
+                modal-title="Selecciona impago" on-select="unpaymentSelect(newValue,
+oldValue)" hide-reset="true" ok-button="Aceptar" cancel-button="Cancelar" has-search="true"
+                search-properties="unpaymentSearchProperties" search-placeholder="Buscar" ng-hide="true">
+                <div class="option">{{option.attendee_name}} - <b>{{option.dateString}}</b> a las
+                    {{option.start}}</div>
+            </button>
+        </ion-content>
+    </ion-side-menu>
+</div>

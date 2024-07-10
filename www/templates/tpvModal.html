@@ -1,0 +1,37 @@
+<ion-modal-view style="z-index: 11;" class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+  <form name="tpvMovementForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title">Tpv</h1>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+        ng-click="closeTpvModal()"></button>
+    </ion-header-bar>
+    <ion-content has-bouncing="true">
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Concepto</div>
+            <input type="text" placeholder="Introduce el concepto" ng-model="tpvMovement.concept" required>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+        <div class="col">
+          <label class="item item-input large">
+            <div class="input-label" style="color: darkGray;">Importe (€)</div>
+            <input type="text" placeholder="Introduce el importe" ng-model="tpvMovement.amount" required>
+          </label>
+        </div>
+      </div>
+
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+        ng-disabled="tpvMovementForm.$invalid" ng-click="openPayment()">Aceptar</button>
+    </ion-footer-bar>
+  </form>
+  <!--<form action="https://sis.redsys.es/sis/realizarPago" method="post">-->
+  <form action="https://sis-t.redsys.es:25443/sis/realizarPago" id="tpvForm" method="post">
+    <input ng-repeat="field in tpvData track by $index" type="hidden" name="{{field.name}}" value="{{field.value}}" />
+  </form>
+</ion-modal-view>

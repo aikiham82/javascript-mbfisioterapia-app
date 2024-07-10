@@ -1,0 +1,23 @@
+<ion-modal-view style="z-index: 11;" class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+  <form name="historyForm">
+    <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+      <h1 class="title">Historial</h1>
+      <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+        ng-click="closeHistoryModal()"></button>
+    </ion-header-bar>
+    <ion-content class="padding" has-bouncing="true">
+
+      <div class="col" style="user-select: text;-moz-user-select:text;padding:0px">
+        <span>{{attendee.name}} {{attendee.cifnif}}<br>
+          {{attendee.address}} {{attendee.location.name}} {{attendee.province.name}}<br>
+          {{attendee.phone1}} {{attendee.phone2}}</span>
+      </div>
+      <div class="ui-grid-top-panel" style="text-align: center">Sesiones</div>
+      <div>
+        <div ui-grid-pagination ui-grid="attendeeAttendances" class="myGrid"></div>
+      </div>
+    </ion-content>
+    <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

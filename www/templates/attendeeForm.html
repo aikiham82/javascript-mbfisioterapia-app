@@ -1,0 +1,231 @@
+<ion-modal-view style="z-index: 11;" class="ionic-select-modal modal slide-in-up ng-enter active ng-enter-active">
+    <form name="attendeeForm">
+        <ion-header-bar ng-class="::ui.headerFooterClass" class="bar bar-header bar-stable">
+            <h1 class="title">Paciente</h1>
+        </ion-header-bar>
+        <ion-content has-bouncing="true">
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Código"
+                               ng-model="attendee.customer_attendee_id" readonly>
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Código"
+                               ng-model="attendee[0].customer_attendee_id" readonly>
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Nombre (*)"
+                               ng-model="attendee.name"
+                               required>
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Nombre (*)"
+                               ng-model="attendee[0].name"
+                               required>
+                    </label>
+                </div>
+            </div>
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Nif/Cif"
+                               ng-model="attendee.cifnif">
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Nif/Cif"
+                               ng-model="attendee[0].cifnif">
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input large">
+                        <div class="input-label" style="color: darkGray;">Fecha nacimiento</div>
+                        <input ng-if="!Array.isArray(attendee)" type="date" placeholder="Fecha nacimiento"
+                               ng-model="attendee.birth_date">
+                        <input ng-if="Array.isArray(attendee)" type="date" placeholder="Fecha nacimiento"
+                               ng-model="attendee[0].birth_date">
+                    </label>
+                </div>
+            </div>
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Telefono 1"
+                               ng-model="attendee.phone1">
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Telefono 1"
+                               ng-model="attendee[0].phone1">
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Telefono 2"
+                               ng-model="attendee.phone2">
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Telefono 2"
+                               ng-model="attendee[0].phone2">
+                    </label>
+                </div>
+            </div>
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="email" placeholder="Email"
+                               ng-model="attendee.email">
+                        <input ng-if="Array.isArray(attendee)" type="email" placeholder="Email"
+                               ng-model="attendee[0].email">
+                        <ion-checkbox style="border: 0;font-size: 14px;color:#111;" ng-if="!Array.isArray(attendee)"
+                                      ng-model="attendee.email_notification"
+                                      ng-model="attendee.email_notification" ng-checked="attendee.email_notification">
+                            Notif.
+                        </ion-checkbox>
+                        <ion-checkbox class="item item-input large" ng-if=" Array.isArray(attendee)"
+                                      ng-model="attendee[0].email_notification"
+                                      ng-model="attendee[0].email_notification"
+                                      ng-checked="attendee[0].email_notification">
+                            Notif.
+                        </ion-checkbox>
+                    </label>
+
+                </div>
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Dirección"
+                               ng-model="attendee.address">
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Dirección"
+                               ng-model="attendee[0].address">
+                    </label>
+                </div>
+            </div>
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+
+                <div class="col">
+                    <label class="item item-input item-select large">
+                        <div class="input-label" style="color: darkGray;">
+                            Provincia
+                        </div>
+                        <select ng-if="!Array.isArray(attendee)"
+                                ng-options="province.name for province in provinces track by province.province_id"
+                                ng-change="getLocations(false)" placeholder="Provincia"
+                                ng-model="attendee.province"></select>
+                        <select ng-if="Array.isArray(attendee)"
+                                ng-options="province.name for province in provinces track by province.province_id"
+                                ng-change="getLocations(false)" placeholder="Provincia"
+                                ng-model="attendee[0].province"></select>
+                    </label>
+                </div>
+                <div class="col">
+
+
+                    <label class="item item-input item-select large">
+                        <label class="item-input-wrapper textbox-search">
+                            <i class="icon ion-ios7-search placeholder-icon"></i>
+                            <input type="search" ng-model="filterCP" ng-change="searchCP(filterCP)"
+                                   placeholder="Búsqueda">
+                        </label>
+                        <div class="input-label" style="color: darkGray;">
+                            Localidad
+                        </div>
+                        <select ng-if="!Array.isArray(attendee)"
+                                ng-options="location.name for location in locations track by location.location_id"
+                                placeholder="Localidad"
+                                ng-model="attendee.location"></select>
+                        <select ng-if="Array.isArray(attendee)"
+                                ng-options="location.name for location in locations track by location.location_id"
+                                placeholder="Localidad"
+                                ng-model="attendee[0].location"></select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" type="text" placeholder="Usuario app"
+                               ng-model="attendee.username">
+                        <input ng-if="Array.isArray(attendee)" type="text" placeholder="Usuario app"
+                               ng-model="attendee[0].username">
+                    </label>
+                </div>
+                <div class="col">
+                    <label class="item item-input large">
+                        <input ng-if="!Array.isArray(attendee)" autocomplete="new-password" type="password"
+                               placeholder="Password app" ng-model="attendee.password">
+                        <input ng-if="Array.isArray(attendee)" autocomplete="new-password" type="password"
+                               placeholder="Password app" ng-model="attendee[0].password">
+                    </label>
+                </div>
+            </div>
+
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+            <textarea ng-if="!Array.isArray(attendee)" placeholder="Observaciones" ng-model="attendee.observations"
+                      name="attendee-editor"></textarea>
+                        <textarea ng-if="Array.isArray(attendee)" placeholder="Observaciones"
+                                  ng-model="attendee[0].observations"
+                                  name="attendee-editor"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="row" ng-class="{'no-padding-top': !data.editItem}">
+                <div class="col">
+                    <label class="item item-input large">
+                        <div class="input-label" style="color: darkGray;">
+                            <!-- estilo para que parezca como el placeholder-->
+                            Tarifa
+                        </div>
+                        <select ng-if="!Array.isArray(attendee)"
+                                ng-options="rate.name for rate in rates track by rate.rate_id"
+                                placeholder="Tarifa" ng-model="attendee.rate"></select>
+                        <select ng-if="Array.isArray(attendee)"
+                                ng-options="rate.name for rate in rates track by rate.rate_id"
+                                placeholder="Tarifa" ng-model="attendee[0].rate"></select>
+                    </label>
+                </div>
+            </div>
+            <ul>
+                <li ng-repeat="extradata in customersAttendeesExtradata">
+                    <div class="col">
+                        <label class="item item-input large">
+                            <div class="input-label" style="color: darkGray;">
+                                <!-- estilo para que parezca como el placeholder-->
+                                {{extradata.name}}
+                            </div>
+                            <textarea ng-if="!Array.isArray(attendee)"
+                                      ng-model="attendee.extradata[getExtradataKey(extradata.customer_attendee_extradata_id)].value"
+                                      name="attendee-editor"></textarea>
+                            <textarea ng-if="Array.isArray(attendee)"
+                                      ng-model="attendee[0].extradata[getExtradataKey(extradata.customer_attendee_extradata_id)].value"
+                                      name="attendee-editor"></textarea>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+
+        </ion-content>
+        <ion-footer-bar ng-class="::ui.headerFooterClass" class="bar bar-footer bar-stable">
+            <button type="button"
+                    class="button button-stable modal-select-close-button ng-binding icon ion-android-done"
+                    ng-disabled="attendeeForm.$invalid" ng-click="saveAttendee()">Guardar
+            </button>
+
+            <button type="button"
+                    class="button button-stable modal-select-close-button ng-binding icon ion-document-text"
+                    ng-click="openHistoryModal()">Historico sesiones
+            </button>
+
+            <select class="button button-stable modal-select-close-button ng-binding icon ion-document"
+                    ng-model="report.selectedReport"
+                    ng-options="i.name for i in reports track by i.customer_attendee_report_id"
+                    placeholder="Informes"></select>
+            <button type="button" class="button button-stable modal-select-close-button ng-binding icon ion-document"
+                    ng-click="openReport()">Ver
+            </button>
+            <button for="upload" style="z-index:0;cursor:pointer;" onclick="document.getElementById('upload').click();"
+                    class="button button-stable modal-select-close-button ng-binding icon ion-upload" icon-only
+                    ion-button>Subir
+            </button>
+            <input style="display:none;" id="upload" name="upload" type="file" ngf-select="onFileSelect($file)">
+
+            <button type="button" style="position: fixed;right: 10px;"
+                    class="button button-stable modal-select-close-button ng-binding icon ion-android-cancel"
+                    ng-click="closeAttendeeModal()">Cancelar
+            </button>
+        </ion-footer-bar>
+    </form>
+</ion-modal-view>

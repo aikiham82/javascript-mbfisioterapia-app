@@ -1,0 +1,55 @@
+{
+  "_from": "ionic-datepicker-fork-ionic1",
+  "_id": "ionic-datepicker-fork-ionic1@1.6.3",
+  "_inBundle": false,
+  "_integrity": "sha1-qu0ggDVrF+hSKwS6R5DhGyYZL3w=",
+  "_location": "/ionic-datepicker-fork-ionic1",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ionic-datepicker-fork-ionic1",
+    "name": "ionic-datepicker-fork-ionic1",
+    "escapedName": "ionic-datepicker-fork-ionic1",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ionic-datepicker-fork-ionic1/-/ionic-datepicker-fork-ionic1-1.6.3.tgz",
+  "_shasum": "aaed2080356b17e8522b04ba4790e11b26192f7c",
+  "_spec": "ionic-datepicker-fork-ionic1",
+  "_where": "/home/abraham/Proyectos/Ionic/fisiolax/www",
+  "author": {
+    "name": "https://github.com/rajeshwarpatlolla, rajeshwar.patlolla@gmail.com"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "OSAMES",
+      "url": "https://github.com/OSAMES/ionic-datepicker"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "A date picker for ionic framework, but also week picker and month picker",
+  "devDependencies": {
+    "del": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "^3",
+    "gulp-concat": "*",
+    "gulp-css2js": "*",
+    "gulp-minify-html": "*",
+    "gulp-ng-html2js": "*",
+    "gulp-sass": "^2",
+    "gulp-uglify": "*"
+  },
+  "license": "MIT",
+  "main": "./dist/ionic-datepicker.bundle.min.js",
+  "name": "ionic-datepicker-fork-ionic1",
+  "scripts": {},
+  "version": "1.6.3"
+}
