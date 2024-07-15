@@ -1,4 +1,4 @@
-app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, CustomerEmployee, CustomerPlace, API_ENDPOINT) {
+app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, CustomerEmployee, CustomerPlace, API_ENDPOINT, uiCalendarConfig) {
     var self = this;
     this.events = undefined; //eventos actuales renderizados
     this.attendancesEventsSource = undefined; //asistencias
@@ -48,8 +48,9 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
             });
         });
     }
-    this.setEvents = function (free, $scope) {
-        const {monday, sunday} = this.getWeekBoundaries($scope.selectDate);
+    this.setEvents = function (free) {
+        const currentDate = uiCalendarConfig.calendars['EventsCalendar'].fullCalendar('getDate');
+        const {monday, sunday} = this.getWeekBoundaries(currentDate);
         var apiMethod = !free ? "events" : "free_events";
         $http.get(API_ENDPOINT.url + "/" + apiMethod + '?attendee_id=null&customer_place_id=null&customer_activity_id=null' +
             `&customer_employee_id=null&grouped=true&from=${monday.toISOString().slice(0, 10)}&to=${sunday.toISOString().slice(0, 10)}`).then(function (result) {
@@ -64,10 +65,10 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         this.freeEventsSource = undefined;
         this.loadEvents();
     }
-    this.loadEvents = function (free, $scope) {
+    this.loadEvents = function (free) {
         var eventsSource = !free ? self.attendancesEventsSource : self.freeEventsSource;
         if (!eventsSource) {
-            this.setEvents(free, $scope);
+            this.setEvents(free);
         } else {
             this.filterEvents(eventsSource);
         }

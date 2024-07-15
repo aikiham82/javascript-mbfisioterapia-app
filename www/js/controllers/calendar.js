@@ -194,5 +194,5 @@ app.controller('CalendarCtrl', function ($scope, $timeout, EventList, Main, Cale
             eventAfterRender: eventAfterRender
         }
     }
-    Calendar.loadEvents(false, $scope);
+    Calendar.loadEvents();
 });
