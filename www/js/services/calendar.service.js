@@ -1,10 +1,11 @@
 app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, CustomerEmployee, CustomerPlace, API_ENDPOINT, uiCalendarConfig) {
-    var self = this;
+    const self = this;
     this.events = undefined; //eventos actuales renderizados
     this.attendancesEventsSource = undefined; //asistencias
     this.freeEventsSource = undefined; //huecos disponibles
     this.multipleSelect = false; //selección multiple activa
     this.selectedEvents = []; //eventos seleccionados cuando la selección multiple está activa
+    this.from = undefined;
     this.openModal = function ($scope) {
         $ionicModal.fromTemplateUrl('templates/scheduleCalendarAppointment.html', {
             scope: $scope,
@@ -40,7 +41,7 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         self.modal.hide();
     }
     this.saveScheduleCalendar = function (scheduleCalendar) {
-        return $q(function (resolve, reject) {
+        return $q(function (resolve) {
             $http.post(API_ENDPOINT.url + '/saveScheduleCalendar', scheduleCalendar).then(function (result) {
                 self.closeModal();
                 resolve(result.data.msg);
@@ -48,17 +49,17 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
             });
         });
     }
-    this.setEvents = function (free) {
-        const currentDate = uiCalendarConfig.calendars['EventsCalendar'].fullCalendar('getDate');
-        const {monday, sunday} = this.getWeekBoundaries(currentDate);
-        var apiMethod = !free ? "events" : "free_events";
+    this.setEvents = function (free, from, to) {
+        this.from = from;
+        const apiMethod = !free ? "events" : "free_events";
         $http.get(API_ENDPOINT.url + "/" + apiMethod + '?attendee_id=null&customer_place_id=null&customer_activity_id=null' +
-            `&customer_employee_id=null&grouped=true&from=${monday.toISOString().slice(0, 10)}&to=${sunday.toISOString().slice(0, 10)}`).then(function (result) {
+            `&customer_employee_id=null&grouped=true&from=${from}&to=${to}`).then(function (result) {
             self.events = result.data;
             if (!free) self.attendancesEventsSource = self.events;
             else self.freeEventsSource = self.events;
             self.filterEvents(self.events);
         });
+
     };
     this.loadServerEvents = function () {
         this.attendancesEventsSource = undefined;
@@ -66,9 +67,13 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         this.loadEvents();
     }
     this.loadEvents = function (free) {
-        var eventsSource = !free ? self.attendancesEventsSource : self.freeEventsSource;
-        if (!eventsSource) {
-            this.setEvents(free);
+        const view = uiCalendarConfig.calendars['EventsCalendar'].fullCalendar('getView');
+        const from = view.start.format('YYYY-MM-DD');
+        const to = view.end.format('YYYY-MM-DD');
+        const eventsSource = !free ? self.attendancesEventsSource : self.freeEventsSource;
+        const reload = eventsSource === undefined || this.from !== from;
+        if (reload) {
+            this.setEvents(free, from, to);
         } else {
             this.filterEvents(eventsSource);
         }
@@ -174,35 +179,11 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         array.forEach(function (element) {
             element.events.forEach(function (event) {
                 if (event.attendee_id == attendee_id) events.push(event);
-                ;
             });
 
         });
         return events;
     }
-
-    this.getWeekBoundaries = function (date) {
-        // Clone the date object to avoid modifying the original date
-        const currentDate = new Date(date);
-
-        // Get the current day of the week (0 is Sunday, 1 is Monday, etc.)
-        const dayOfWeek = currentDate.getDay();
-
-        // Calculate the difference to Monday (Monday is 1, so we subtract (dayOfWeek - 1))
-        const diffToMonday = currentDate.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-
-        // Calculate Monday and Sunday dates
-        const monday = new Date(currentDate.setDate(diffToMonday));
-        const sunday = new Date(monday);
-        sunday.setDate(monday.getDate() + 6);
-
-        // Return the boundaries
-        return {
-            monday,
-            sunday
-        };
-    }
-
     /*this.updateAttendancesEventsSource = function (event) {
         var index = this.attendancesEventsSource.events.events.indexOf($filter('filter')(this.attendancesEventsSource.events.events, {
             'date': event.date,

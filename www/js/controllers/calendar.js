@@ -1,8 +1,8 @@
-app.controller('CalendarCtrl', function ($scope, $timeout, EventList, Main, Calendar, CustomerEmployee, CustomerPlace, CustomerActivity, uiCalendarConfig, $ionicPopup, Event, ATTENDANCE, ionicDatePicker) {
+app.controller('CalendarCtrl', async function ($scope, $timeout, EventList, Main, Calendar, CustomerEmployee, CustomerPlace, CustomerActivity, uiCalendarConfig, $ionicPopup, Event, ATTENDANCE, ionicDatePicker) {
 
     eventAfterRender = function (event) {
         //if ($scope.customer) $scope.resetCustomerNote();
-        var checkboxElement = document.getElementById(event._id);
+        const checkboxElement = document.getElementById(event._id);
         checkboxElement.addEventListener('change', (event) => {
             const selectedEvent = uiCalendarConfig.calendars['EventsCalendar'].fullCalendar('clientEvents', event.target.id)[0];
             if (event.target.checked) {
@@ -81,6 +81,12 @@ app.controller('CalendarCtrl', function ($scope, $timeout, EventList, Main, Cale
                 }
             }
         }
+    }
+
+    viewRender = function () {
+        setTimeout(() => {
+            Calendar.loadEvents()
+        }, 0);
     }
 
 
@@ -191,8 +197,9 @@ app.controller('CalendarCtrl', function ($scope, $timeout, EventList, Main, Cale
                 },
             },
             eventRender: eventRender,
-            eventAfterRender: eventAfterRender
+            eventAfterRender: eventAfterRender,
+            viewRender: viewRender
         }
     }
-    Calendar.loadEvents();
+
 });
