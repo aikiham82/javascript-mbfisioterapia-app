@@ -1,6 +1,6 @@
 app.controller('CalendarCtrl', function ($scope, $timeout, EventList, Main, Calendar, CustomerEmployee, CustomerPlace, CustomerActivity, uiCalendarConfig, $ionicPopup, Event, ATTENDANCE, ionicDatePicker) {
 
-    eventAfterRender = function (event, element, view) {
+    eventAfterRender = function (event) {
         //if ($scope.customer) $scope.resetCustomerNote();
         var checkboxElement = document.getElementById(event._id);
         checkboxElement.addEventListener('change', (event) => {

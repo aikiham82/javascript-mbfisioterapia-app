@@ -1,4 +1,4 @@
-app.controller('ButtonsCtrl', function ($scope, Calendar, Main, CustomerNote, CustomerEmployee, CustomerPlace, CustomerActivity) {
+app.controller('ButtonsCtrl', function ($scope, Calendar, Main, CustomerNote) {
     $scope.openCustomerNotesModal = function () { //son notas semanales
         CustomerNote.showModal();
     }
