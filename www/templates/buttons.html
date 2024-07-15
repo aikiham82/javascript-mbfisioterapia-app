@@ -2,7 +2,7 @@
     <md-calendar ng-model="ctrl.startDate"></md-calendar>
 
     <button ng-class="{'button button-clear': !attendanceEvents  , 'button button-selected': attendanceEvents}"
-            ng-click="loadEvents()">Calendario
+            ng-click="loadEvents(false)">Calendario
     </button>
     <button ng-class="{'button button-selected': !attendanceEvents  , 'button button-clear': attendanceEvents}"
             ng-click="loadEvents(true)" ng-disabled="freeCounters.length==0">Disponibilidad

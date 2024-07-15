@@ -85,7 +85,7 @@ app.controller('CalendarCtrl', async function ($scope, $timeout, EventList, Main
 
     viewRender = function () {
         setTimeout(() => {
-            Calendar.loadEvents()
+            Calendar.loadEvents(Calendar.free)
         }, 0);
     }
 
@@ -176,7 +176,7 @@ app.controller('CalendarCtrl', async function ($scope, $timeout, EventList, Main
                 refresh: {
                     icon: 'sync',
                     click: function () {
-                        Calendar.loadServerEvents()
+                        Calendar.loadEvents()
                     }
                 }
             },

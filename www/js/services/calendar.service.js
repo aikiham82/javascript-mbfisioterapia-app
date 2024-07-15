@@ -1,11 +1,10 @@
 app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, CustomerEmployee, CustomerPlace, API_ENDPOINT, uiCalendarConfig) {
     const self = this;
     this.events = undefined; //eventos actuales renderizados
-    this.attendancesEventsSource = undefined; //asistencias
-    this.freeEventsSource = undefined; //huecos disponibles
     this.multipleSelect = false; //selección multiple activa
     this.selectedEvents = []; //eventos seleccionados cuando la selección multiple está activa
     this.from = undefined;
+    this.free = false;
     this.openModal = function ($scope) {
         $ionicModal.fromTemplateUrl('templates/scheduleCalendarAppointment.html', {
             scope: $scope,
@@ -61,22 +60,17 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         });
 
     };
-    this.loadServerEvents = function () {
-        this.attendancesEventsSource = undefined;
-        this.freeEventsSource = undefined;
-        this.loadEvents();
-    }
     this.loadEvents = function (free) {
         const view = uiCalendarConfig.calendars['EventsCalendar'].fullCalendar('getView');
         const from = view.start.format('YYYY-MM-DD');
         const to = view.end.format('YYYY-MM-DD');
-        const eventsSource = !free ? self.attendancesEventsSource : self.freeEventsSource;
-        const reload = eventsSource === undefined || this.from !== from;
-        if (reload) {
-            this.setEvents(free, from, to);
-        } else {
-            this.filterEvents(eventsSource);
+        if (free === undefined) {
+            if (self.free !== undefined) {
+                free = self.free
+            } else free = false;
         }
+        self.free = free;
+        this.setEvents(free, from, to);
         this.selectedEvents = [];
     };
     this.filterEvents = function (eventsSource) { //filtro local
@@ -161,7 +155,7 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
             }
         }
         return $http.post(API_ENDPOINT.url + '/attendance_notattendance', events_).then(function (result) {
-            if (result.data.success) self.loadServerEvents();
+            if (result.data.success) self.loadEvents(false);
         });
     }
     this.setMultipleSelection = function (multipleSelect) {

@@ -33,7 +33,7 @@ app.controller('LeftMenuCtrl', function ($scope, $location, $ionicPopup, $timeou
                 title: 'Cobrar bono',
                 template: "Cobro realizado correctamente"
             });
-            Calendar.loadServerEvents();
+            Calendar.loadEvents();
         } else if ($scope.attendeeAction == "saleInvoice") {
             if (newValue.attendee_id == null) {
                 $scope.$broadcast('newAttendeeFired', {

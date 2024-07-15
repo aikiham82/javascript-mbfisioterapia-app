@@ -17,7 +17,7 @@ app.factory('AuthInterceptor', ['$timeout', '$injector', '$q', function ($timeou
             title: 'Error!',
             template: msg
         });
-        if ($injector.get("AuthService").isAuthenticated()) $injector.get("Calendar").loadServerEvents();
+        if ($injector.get("AuthService").isAuthenticated()) $injector.get("Calendar").loadEvents();
     };
     return {
         request: function (config) {

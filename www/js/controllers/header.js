@@ -4,11 +4,7 @@ app.controller('HeaderCtrl', function ($scope, Main, Calendar, CustomerEmployee,
     };
     $scope.toggleRight = function () {
         if ($ionicSideMenuDelegate.isOpenRight()) {
-            if (Calendar.events.freeCounters) {
-                Calendar.loadEvents();
-            } else {
-                Calendar.loadEvents(true);
-            }
+            Calendar.loadEvents();
         }
         $ionicSideMenuDelegate.toggleRight();
     };
