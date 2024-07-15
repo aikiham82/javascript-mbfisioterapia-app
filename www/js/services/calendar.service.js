@@ -48,10 +48,11 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
             });
         });
     }
-    this.setEvents = function (free) {
+    this.setEvents = function (free, $scope) {
+        const {monday, sunday} = this.getWeekBoundaries($scope.selectDate);
         var apiMethod = !free ? "events" : "free_events";
         $http.get(API_ENDPOINT.url + "/" + apiMethod + '?attendee_id=null&customer_place_id=null&customer_activity_id=null' +
-            '&customer_employee_id=null&grouped=true').then(function (result) {
+            `&customer_employee_id=null&grouped=true&from=${monday.toISOString().slice(0, 10)}&to=${sunday.toISOString().slice(0, 10)}`).then(function (result) {
             self.events = result.data;
             if (!free) self.attendancesEventsSource = self.events;
             else self.freeEventsSource = self.events;
@@ -63,10 +64,10 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         this.freeEventsSource = undefined;
         this.loadEvents();
     }
-    this.loadEvents = function (free) {
+    this.loadEvents = function (free, $scope) {
         var eventsSource = !free ? self.attendancesEventsSource : self.freeEventsSource;
         if (!eventsSource) {
-            this.setEvents(free);
+            this.setEvents(free, $scope);
         } else {
             this.filterEvents(eventsSource);
         }
@@ -162,8 +163,8 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
     }
     this.findEventIndex = function (array, event) {
         if (i = array.findIndex(function (element) {
-                return element._id == event._id;
-            })) {
+            return element._id == event._id;
+        })) {
             return i;
         }
     }
@@ -171,12 +172,36 @@ app.service('Calendar', function ($http, $q, $ionicModal, CustomerActivity, Cust
         let events = [];
         array.forEach(function (element) {
             element.events.forEach(function (event) {
-                if (event.attendee_id == attendee_id) events.push(event);;
+                if (event.attendee_id == attendee_id) events.push(event);
+                ;
             });
 
         });
         return events;
     }
+
+    this.getWeekBoundaries = function (date) {
+        // Clone the date object to avoid modifying the original date
+        const currentDate = new Date(date);
+
+        // Get the current day of the week (0 is Sunday, 1 is Monday, etc.)
+        const dayOfWeek = currentDate.getDay();
+
+        // Calculate the difference to Monday (Monday is 1, so we subtract (dayOfWeek - 1))
+        const diffToMonday = currentDate.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+
+        // Calculate Monday and Sunday dates
+        const monday = new Date(currentDate.setDate(diffToMonday));
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+
+        // Return the boundaries
+        return {
+            monday,
+            sunday
+        };
+    }
+
     /*this.updateAttendancesEventsSource = function (event) {
         var index = this.attendancesEventsSource.events.events.indexOf($filter('filter')(this.attendancesEventsSource.events.events, {
             'date': event.date,
