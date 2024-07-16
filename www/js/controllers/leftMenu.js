@@ -271,4 +271,5 @@ app.controller('LeftMenuCtrl', function ($scope, $location, $ionicPopup, $timeou
     $scope.user = AuthService.getAuthenticatedUser();
     $scope.paymentSearchProperties = ['attendee_name', 'dateString', 'start'];
     $scope.filterCP = "";
+    $scope.attendeesSearchProperties = ['customer_attendee_id', 'name', 'cifnif', 'phone1', 'phone2'];
 });
