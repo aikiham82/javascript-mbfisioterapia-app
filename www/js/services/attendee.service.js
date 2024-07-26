@@ -85,8 +85,8 @@ app.service('Attendee', function ($q, $ionicModal, $http, Main, Province, Locati
 
     this.findAttendeeIndex = function (attendee_id) {
         if (i = self.attendees.findIndex(function (element) {
-                return element.attendee_id == attendee_id;
-            })) {
+            return element.attendee_id == attendee_id;
+        })) {
             return i;
         }
     }
@@ -170,7 +170,15 @@ app.service('Attendee', function ($q, $ionicModal, $http, Main, Province, Locati
             }
         }
         this.setAttendeeAttendances($scope).then(function (result) {
-            $scope.attendeeAttendances.data = result;
+            $scope.attendeeAttendances.data = result.sort((a, b) => {
+                const parseDateTime = (str) => {
+                    const [day, month, year, hour, minute] = str.match(/\d+/g);
+                    return new Date(`20${year}-${month}-${day}T${hour}:${minute}`);
+                };
+                const dateA = parseDateTime(a.sesión);
+                const dateB = parseDateTime(b.sesión);
+                return dateB - dateA;  // For descending order
+            });
         });
     }
     this.setAttendeeAttendances = function ($scope) {
